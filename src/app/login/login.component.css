@@ -1,0 +1,9 @@
+form{
+	background: #fff;
+ 
+}
+/* set padding and size of th form */
+.form-container{
+	border-radius: 10px;
+	padding: 30px;
+}

@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row py-2">
+        <div class="col py-2" style="min-width: 280px;"  *ngFor="let s of statistic">
+            <mat-card style="min-height: 120px;">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-2 py-2 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" [style.fill]="s.color"
+                                    fill="currentColor" class="bi bi-cpu" viewBox="0 0 16 16">
+                                    <path
+                                    [attr.d]="s.image" />
+                                </svg>
+                            </div>
+                            <div class="col  text-right">
+                                <p class=" h4 font-weight-bold ">{{s.value}}</p>
+                                <p class="">{{s.name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </mat-card>
+        </div>
+    </div>
+</div>

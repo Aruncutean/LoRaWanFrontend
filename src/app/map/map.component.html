@@ -1,0 +1,14 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side"  position="end"  [opened]="open">
+        <button (click)="hide()" type="button" class="btn btn-primary">
+            Hide
+        </button>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div id="map">
+            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="14">
+                <agm-marker (markerClick)="hide()"  [latitude]="latitude" [longitude]="longitude"></agm-marker>
+            </agm-map>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
