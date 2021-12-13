@@ -1,0 +1,52 @@
+<div>
+    <div class="container">
+        <div class="card">
+
+            <div class="card-body">
+                <div class="row px-2 py-2">
+                    <H2 class="ml-4"> User page info</H2>
+                </div>
+                <div class="row px-2 py-2">
+                    <div class="col">
+                        <label for="basic-url">User name</label>
+                        <input type="text" class="form-control" disabled="true" placeholder="" aria-label="" [value]="userName"
+                            aria-describedby="basic-addon1">
+                    </div>
+                   
+                </div>
+                <div class="row px-2 py-2">
+                    <div class="col">
+                        <label for="basic-url">First Name</label>
+                        <input type="text" class="form-control" disabled="true" placeholder="" aria-label=""  [value]="firstName"
+                            aria-describedby="basic-addon1">
+                    </div>
+                    <div class="col">
+                        <label for="basic-url">Last Name </label>
+                        <input type="text" class="form-control" disabled="true" placeholder="" aria-label="" [value]="lastName"
+                            aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="row px-2 py-2">
+                    <div class="col">
+                        <label for="basic-url">Email</label>
+                        <input type="text" class="form-control" disabled="true" placeholder="" aria-label="" [value]="email"
+                            aria-describedby="basic-addon1">
+                    </div>
+                  
+                </div>
+
+                <div class="row px-2 py-2">
+                    <div class="col">
+                        <label for="basic-url">User rol</label>
+                        <input type="text" class="form-control" disabled="true" placeholder="" aria-label="" [value]="userRol"
+                            aria-describedby="basic-addon1">
+                    </div>
+                    <div class="col" >
+                        <label class="py-2"></label><br>
+                        <button type="button" class="btn btn-danger" (click)="cerereAdmin()">Make admin</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

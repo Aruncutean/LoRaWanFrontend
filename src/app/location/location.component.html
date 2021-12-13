@@ -1,0 +1,70 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" position="end" [opened]="open">
+
+        <div class="container">
+            <div class="col">
+                <div class="row py-2">
+                    <svg (click)="hide()" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                    </svg>
+                </div>
+                <div class="row">
+                    <h2> Add new location</h2>
+                </div>
+                <div class="row">
+                    <h3> Set a new location on the map</h3>
+                    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" class="form-container">
+                        <div *ngIf="errorView" class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                        <div class="continer">
+                            
+                                <select id="nodeSelector" class="browser-default custom-select my-2"   (change)="selectNode($event)">
+                                    <option selected>Open this select menu</option>
+                                    <option *ngFor="let item of listNode" (value)="item">{{item}}</option>
+
+                                </select>
+                            
+
+                            <select [disabled]="nodeIsSelected" class="browser-default custom-select my-2"   (change)="selectMessage($event)">
+                                <option selected>Open this select menu</option>
+                                <option *ngFor="let item of listMessage" (value)="item" >{{item}}</option>
+
+                            </select>
+                            <button class="btn btn-primary btn-block my-2" [disabled]="!authForm.valid">Save</button>
+
+                        </div>
+                    </form>
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </mat-drawer>
+    <mat-drawer-content>
+
+        <div id="map">
+            <div class="map-container">
+                <div class="map-frame">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+        <div style="  position: absolute;
+                      z-index:400;  
+                      bottom:60px;
+                      right:80px;
+                      padding: 10px;">
+            <button *ngIf="!open" style="position: absolute;" type="button" class="btn btn-danger"
+                (click)="hide()">Add</button>
+            <button *ngIf="open" style="position: absolute;" type="button" class="btn  btn-secondary"
+                (click)="hide()">Clone</button>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>

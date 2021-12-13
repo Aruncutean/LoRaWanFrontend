@@ -1,14 +1,107 @@
 <mat-drawer-container class="example-container">
-    <mat-drawer mode="side"  position="end"  [opened]="open">
-        <button (click)="hide()" type="button" class="btn btn-primary">
-            Hide
-        </button>
+    <mat-drawer mode="side" position="end" [opened]="open">
+
+        <div class="container">
+            <div class="col">
+                <div class="row py-2">
+                    <svg (click)="hide()" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                    </svg>
+                </div>
+                <div class="row">
+
+
+                    <div class="col">
+                        <h2> {{nameStation}}</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <h4>Dev Eui: {{devEui}}</h4>
+                </div>
+                <div class="row">
+                    <h4>App Eui: {{appEui}}</h4>
+                </div>
+                <div class="row">
+                    <h2> Temperature</h2>
+                    <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasetsTemperature" [labels]="chartLabelsTemp"
+                        [colors]="chartColors" [options]="chartOptions">
+                    </canvas>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-outline-dark btn-sm" (click)="changeDate7Day(1)">Last 7 day</button>
+                            </div>
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-outline-dark btn-sm text-nowrap" (click)="changeDateMonth(1)">Last Month</button>
+                            </div>
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-outline-dark btn-sm" (click)="changeDateYear(1)">Last Year</button>
+                            </div>
+                        </div>
+                
+                    </div>
+                
+                
+                
+                </div>
+                <div class="row">
+                    <h2> Humidity</h2>
+                    <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasetsHumidity" [labels]="chartLabelsHum" [colors]="chartColors"
+                        [options]="chartOptions">
+                    </canvas>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-outline-dark btn-sm" (click)="changeDate7Day(2)">Last 7 day</button>
+                            </div>
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-outline-dark btn-sm text-nowrap" (click)="changeDateMonth(2)">Last Month</button>
+                            </div>
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-outline-dark btn-sm" (click)="changeDateYear(2)">Last Year</button>
+                            </div>
+                        </div>
+                
+                    </div>
+                
+                </div>
+                <div class="row">
+                    <h2>Air Quality </h2>
+                    <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasetsAirQuality" [labels]="chartLabelsAirQ" [colors]="chartColors"
+                        [options]="chartOptions">
+                    </canvas>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-outline-dark btn-sm" (click)="changeDate7Day(3)">Last 7 day</button>
+                            </div>
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-outline-dark btn-sm text-nowrap" (click)="changeDateMonth(3)">Last Month</button>
+                            </div>
+                            <div class="col-sm">
+                                <button type="button" class="btn btn-outline-dark btn-sm" (click)="changeDateYear(3)">Last Year</button>
+                            </div>
+                        </div>
+                
+                    </div>
+                
+                </div>
+           
+            </div>
+        </div>
+
     </mat-drawer>
     <mat-drawer-content>
+
         <div id="map">
-            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="14">
-                <agm-marker (markerClick)="hide()"  [latitude]="latitude" [longitude]="longitude"></agm-marker>
-            </agm-map>
+            <div class="map-container">
+                <div class="map-frame">
+                    <div id="map"></div>
+                </div>
+            </div>
         </div>
+
     </mat-drawer-content>
 </mat-drawer-container>
