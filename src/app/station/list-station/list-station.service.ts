@@ -22,7 +22,7 @@ export class ListStationService {
     constructor(private http: HttpClient) { }
 
 
-    getAllStation(email:string) {
+    getAllStation() {
         
         const userData:{
             email:string;
@@ -36,7 +36,7 @@ export class ListStationService {
         });
    
      
-        return this.http.get<ListStation[]>('/api/node/getNodeByUser/'+email, {
+        return this.http.get<ListStation[]>('/api/node/getNodeByUser/'+userData.email, {
             headers: httpHeaders,    
         });
     }

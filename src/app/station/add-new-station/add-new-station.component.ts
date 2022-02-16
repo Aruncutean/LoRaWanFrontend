@@ -5,6 +5,7 @@ import { MapService } from 'src/app/map/map.service';
 import * as L from 'leaflet';
 import { AddService } from './add.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 @Component({
   selector: 'app-add-new-station',
   templateUrl: './add-new-station.component.html',
@@ -23,10 +24,11 @@ export class AddNewStationComponent implements OnInit, AfterViewInit {
 
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
-  constructor(public dialogRef: MatDialogRef<AddNewStationComponent>, 
+  constructor(public dialogRef: MatDialogRef<AddNewStationComponent>,
     private _formBuilder: FormBuilder,
-     private addservice: AddService, 
-     private router: Router) { }
+    private addservice: AddService,
+    private router: Router,
+    private auth:AuthService) { }
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
@@ -68,16 +70,18 @@ export class AddNewStationComponent implements OnInit, AfterViewInit {
     this.firstFormGroup.controls['nameStation'].value;
     this.addservice.postAdd(this.firstFormGroup.controls['nameStation'].value, this.firstFormGroup.controls['devEui'].value, this.firstFormGroup.controls['appEui'].value, this.long.toString(), this.lat.toString()
     ).subscribe(data => {
-           console.log(data);
+      console.log(data);
 
-           this.dialogRef.close();
+      this.dialogRef.close();
+    }, error => {
+      if (error.status === 403) {
+        this.auth.reload();
+
+      }
     });
-
-  
   }
-   
-  closeDialog()
-  {
-this.dialogRef.close();
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }

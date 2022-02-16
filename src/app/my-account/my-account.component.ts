@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AuthService } from '../auth/auth.service';
 import { MyAccountService } from './my-account.service';
 
 interface DateDialog {
@@ -19,7 +20,7 @@ export class MyAccountComponent implements OnInit {
   email: string;
   userRol: string;
 
-  constructor(private myAccount: MyAccountService, private dialog: MatDialog) { }
+  constructor(private myAccount: MyAccountService, private dialog: MatDialog,private auth:AuthService) { }
 
   ngOnInit(): void {
     this.myAccount.getUserInfo().subscribe(date => {
@@ -29,40 +30,18 @@ export class MyAccountComponent implements OnInit {
       this.lastName = date.lastName;
       this.userRol = date.rol;
       console.log(date);
-    })
+    },error=>{
+      if(error.status===403)
+      {
+        this.auth.reload();
+       
+      }
+ })
 
   }
 
-  cerereAdmin() {
-    const dialogRef = this.dialog.open(Dialog, {
-      width: '300px',
-      data: { name: this.userName }
-    });
-  }
+  
 }
 
 
-@Component({
-  selector: 'dialog-overview-example-dialog',
-  templateUrl: './dialog.html',
-})
-export class Dialog implements OnInit {
-  name: string;
-  constructor(
-    public dialogRef: MatDialogRef<Dialog>,
-    @Inject(MAT_DIALOG_DATA) private dataDialog: DateDialog
-  ) {
 
-  }
-  ngOnInit(): void {
-    this.name=this.dataDialog.name;
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  makeAdminUtilizator() {
-
-  }
-}

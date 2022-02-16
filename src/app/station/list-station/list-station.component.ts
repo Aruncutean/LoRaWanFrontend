@@ -2,14 +2,12 @@ import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { controllers } from 'chart.js';
-import { AlertBoxComponent } from 'src/app/alert-box/alert-box.component';
+import { AuthService } from 'src/app/auth/auth.service';
 import { AddNewStationComponent } from '../add-new-station/add-new-station.component';
 import { InfostatinComponent } from '../infostatin/infostatin.component';
-import { Station } from '../station.model';
 import { ListStation } from './list-station.model';
 import { ListStationService } from './list-station.service';
+
 
 export interface DialogInfoData {
   name: string,
@@ -30,9 +28,9 @@ export class ListStationComponent implements AfterViewInit, OnInit {
   stationList: Array<ListStation> = [];
   dataSource = new MatTableDataSource(this.stationList);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private liststation: ListStationService, public dialog: MatDialog) { }
+  constructor(private liststation: ListStationService, public dialog: MatDialog, private auth: AuthService) { }
   ngOnInit(): void {
-    this.liststation.getAllStation('ion@ion.com').subscribe(restData => {
+    this.liststation.getAllStation().subscribe(restData => {
       var stationList: Array<ListStation> = [];
       for (let key in restData) {
         stationList.push(new ListStation(Number(key), restData[key].name,
@@ -45,6 +43,11 @@ export class ListStationComponent implements AfterViewInit, OnInit {
 
       this.dataSource = new MatTableDataSource(stationList);
       this.dataSource.paginator = this.paginator;
+    }, error => {
+      if (error.status === 403) {
+        this.auth.reload();
+
+      }
     })
   }
   ngAfterViewInit(): void {
@@ -60,7 +63,7 @@ export class ListStationComponent implements AfterViewInit, OnInit {
       data: { name: e.name, devEui: e.devEui, appEui: e.appEui, battery: e.battery }
     });
     dialogRef.afterClosed().subscribe(e => {
-      this.liststation.getAllStation('ion@ion.com').subscribe(restData => {
+      this.liststation.getAllStation().subscribe(restData => {
         var stationList: Array<ListStation> = [];
         for (let key in restData) {
           stationList.push(new ListStation(Number(key), restData[key].name,
@@ -70,9 +73,14 @@ export class ListStationComponent implements AfterViewInit, OnInit {
             restData[key].active
           ))
         }
-  
+
         this.dataSource = new MatTableDataSource(stationList);
         this.dataSource.paginator = this.paginator;
+      }, error => {
+        if (error.status === 403) {
+          this.auth.reload();
+
+        }
       })
     })
   }
@@ -91,7 +99,7 @@ export class ListStationComponent implements AfterViewInit, OnInit {
     });
 
     dialogRef.afterClosed().subscribe(e => {
-      this.liststation.getAllStation('ion@ion.com').subscribe(restData => {
+      this.liststation.getAllStation().subscribe(restData => {
         var stationList: Array<ListStation> = [];
         for (let key in restData) {
           stationList.push(new ListStation(Number(key), restData[key].name,
@@ -101,10 +109,15 @@ export class ListStationComponent implements AfterViewInit, OnInit {
             restData[key].active
           ))
         }
-  
+
         this.dataSource = new MatTableDataSource(stationList);
         this.dataSource.paginator = this.paginator;
       })
+    }, error => {
+      if (error.status === 403) {
+        this.auth.reload();
+
+      }
     })
 
   }

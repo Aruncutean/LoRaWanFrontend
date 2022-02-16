@@ -24,7 +24,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { GraphComponent } from './map/graph/graph.component';
 import { MyAccountComponent } from './my-account/my-account.component';
-import { AlertBoxComponent } from './alert-box/alert-box.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { InfostatinComponent } from './station/infostatin/infostatin.component';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -53,7 +52,6 @@ const routes: Routes = [
     AuthComponent,
     GraphComponent,
     MyAccountComponent,
-    AlertBoxComponent,
     InfostatinComponent,
     AddNewStationComponent,
   ],

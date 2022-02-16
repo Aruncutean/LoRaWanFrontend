@@ -2,7 +2,7 @@ import { error } from '@angular/compiler/src/util';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SingUpService } from './sing-up.services';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sing-up',
   templateUrl: './sing-up.component.html',
@@ -12,7 +12,8 @@ export class SingUpComponent implements OnInit {
   errorLogin: boolean = false;
   error: string = '';
   isValid: boolean = false;
-  constructor(private singUp: SingUpService) { }
+ 
+  constructor(private singUp: SingUpService,private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -21,24 +22,21 @@ export class SingUpComponent implements OnInit {
 
     if (form.value.password1 !== form.value.password2) {
       this.errorLogin = true;
-      this.error = "Password!!!1";
+      this.error = "Password!!!";
     } else {
       this.errorLogin = false;
       this.error = "";
-      console.log(form.value.username);
-      console.log(form.value.firstname);
-      console.log(form.value.email);
-      console.log(form.value.lastname);
-      
-      this.singUp.singUp(form.value.lastname,form.value.firstname,form.value.username,form.value.email,form.value.password1).subscribe(data=>{
-        console.log(data);
-      })
-      
-      this.singUp.setRol(form.value.email).subscribe(data=>
-      {
 
+      this.singUp.singUp(form.value.lastname,form.value.firstname,form.value.username,form.value.email,form.value.password1).subscribe(data=>{
+  
+        if(data.message==="Account is create"){
+           console.log(data.message);
+           this.router.navigate(['/Auth']);
+        }else{
+          this.errorLogin =true;
+          this.error=data.message;
+        }
       })
-      
     }
   }
 

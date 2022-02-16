@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import * as L from 'leaflet';
+import { AuthService } from '../auth/auth.service';
+import { User } from '../auth/user.model';
 import { LocationService } from './location.service';
 @Component({
   selector: 'app-location',
@@ -47,6 +49,12 @@ export class LocationComponent implements AfterViewInit {
         this.marker = L.circleMarker([Number(result[i].log), Number(result[i].lat)]).addTo(this.map);
         this.marker.bindPopup("Name Station: " + result[i].name + "<br>" + "Rssi: " + result[i].rssi);
       }
+    },error=>{
+         if(error.status===403)
+         {
+           this.auth.reload();
+          
+         }
     })
 
 
@@ -65,7 +73,7 @@ export class LocationComponent implements AfterViewInit {
   }
 
 
-  constructor(public locationService: LocationService) { }
+  constructor(public locationService: LocationService,private auth:AuthService) { }
 
   hide() {
     this.open = !this.open;
@@ -126,7 +134,13 @@ export class LocationComponent implements AfterViewInit {
     this.locationService.getMessage(event.target.value).subscribe(date => {
       this.listMessage = date;
       this.nodeIsSelected = false;
-    })
+    },error=>{
+      if(error.status===403)
+      {
+        this.auth.reload();
+      
+      }
+ })
     this.selectNodeValue = event.target.value;
 
     this.errorView = false;

@@ -12,18 +12,17 @@ interface AuthResponseDate {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    user=new Subject<User>();    
-   private auth=new BehaviorSubject<boolean>(false);
+    user = new Subject<User>();
+    private auth = new BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient) { }
 
-    setAuth(auth:boolean)
-    {
+    setAuth(auth: boolean) {
         this.auth.next(true);
     }
 
-   get getAuth(){
-return this.auth.asObservable();
+    get getAuth() {
+        return this.auth.asObservable();
     }
 
     singUp(email: string, password: string) {
@@ -35,5 +34,43 @@ return this.auth.asObservable();
         }, {
             headers: httpHeaders,
         });
+    }
+
+
+    reload()
+    {
+        const userData: {
+            email: string;
+            password: string;
+            token: string;
+        } = JSON.parse(localStorage.getItem('userData')!);
+
+        let httpHeaders = new HttpHeaders();
+        httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
+        return this.http.post<AuthResponseDate>('/api/authenticate', {
+            email: userData.email,
+            password: userData.password
+        }, {
+            headers: httpHeaders,
+        }).subscribe(restData => {
+
+            console.log(restData)
+            switch (restData.message) {
+              case 'Email not exist!!!':
+           
+                break;
+                case 'Password is incorrect!!!':
+              
+                break;
+                case 'Ok!!':
+               
+                 const user=new User(userData.email,userData.password,restData.jwt)
+                 this.user.next(user);
+                 localStorage.setItem('userData',JSON.stringify(user));
+                 window.location.reload();
+                  break
+            }
+          })
+
     }
 }

@@ -8,3 +8,34 @@
   table {
     width: 100%;
   }
+
+  agm-map {
+    height: 100%;
+  }
+
+  .map-container {
+   
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+   
+  }
+  
+  .map-frame {
+
+    height: 100%;
+  }
+  
+
+  #map {
+    height: -webkit-calc( 30vh - 75px);
+  }
+  .example-container {
+    width: 100%;
+    height: -webkit-calc( 30vh - 75px);
+  }
+
+  mat-drawer{
+      width: 400px;
+  }

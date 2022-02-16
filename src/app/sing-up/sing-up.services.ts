@@ -1,11 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http"
 
-
 interface ResponseDate {
     message: string;
 }
-
 
 @Injectable({ providedIn: 'root' })
 export class SingUpService {

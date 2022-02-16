@@ -27,7 +27,7 @@ export class StatisticService {
     constructor(private http: HttpClient) { }
 
 
-    getAllStation(email:string) {
+    getAllStation() {
         
         const userData:{
             email:string;
@@ -40,7 +40,7 @@ export class StatisticService {
             'Authorization': 'Bearer '+userData.token,
         });
      
-        return this.http.get<statistic>('/api/node/getMyStation/'+email, {
+        return this.http.get<statistic>('/api/node/getMyStation/'+userData.email, {
             headers: httpHeaders,    
         });
     }

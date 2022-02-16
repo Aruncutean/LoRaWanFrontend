@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { BehaviorSubject, Subject } from "rxjs";
-import { Station } from "src/app/map/station.model";
-import { getLocaleDayPeriods } from "@angular/common";
-import { EmailValidator } from "@angular/forms";
 import { InformationModel } from "./information.model";
+import { Station } from "src/app/map/station.model";
 
 
 
@@ -23,7 +21,7 @@ export class InformationService {
     constructor(private http: HttpClient) { }
 
 
-    getInformation(name:string) {
+    getInformation(name:string,limSup:number,limInf:number) {
         
         const userData:{
             email:string;
@@ -36,7 +34,25 @@ export class InformationService {
             'Authorization': 'Bearer '+userData.token,
         });
      
-        return this.http.get<InformationModel[]>('/api/node/getPayload/'+name, {
+        return this.http.get<InformationModel[]>('/api/node/getPayload/'+name+'/'+limSup+'/'+limInf, {
+            headers: httpHeaders,    
+        });
+    }
+
+    getNodePosition(name:string)
+    {
+        const userData:{
+            email:string;
+            password:string;
+            token:string;
+       }=JSON.parse(localStorage.getItem('userData')!);
+      
+        let httpHeaders = new HttpHeaders({
+            'Content-Type': 'application/json; charset=utf-8',
+            'Authorization': 'Bearer '+userData.token,
+        });
+
+        return this.http.get<Station>('/api/node/getNode/'+name, {
             headers: httpHeaders,    
         });
     }
