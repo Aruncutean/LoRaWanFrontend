@@ -34,7 +34,7 @@ export class InformationService {
             'Authorization': 'Bearer '+userData.token,
         });
      
-        return this.http.get<InformationModel[]>('/api/node/getPayload/'+name+'/'+limSup+'/'+limInf, {
+        return this.http.get<InformationModel[]>('/node/getPayload/'+name+'/'+limSup+'/'+limInf, {
             headers: httpHeaders,    
         });
     }
@@ -52,7 +52,7 @@ export class InformationService {
             'Authorization': 'Bearer '+userData.token,
         });
 
-        return this.http.get<Station>('/api/node/getNode/'+name, {
+        return this.http.get<Station>('/node/getNode/'+name, {
             headers: httpHeaders,    
         });
     }
@@ -71,7 +71,7 @@ export class InformationService {
             'Authorization': 'Bearer '+userData.token,
         });
      
-        return this.http.delete('/api/node/deleteNode/'+name, {
+        return this.http.delete('/node/deleteNode/'+name, {
             headers: httpHeaders,    
         });
     }

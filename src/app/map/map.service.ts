@@ -16,7 +16,7 @@ export class MapService {
     getAllStation() {
         let httpHeaders = new HttpHeaders();
         httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.get<Station[]>('/api/node/getAllNode' );
+        return this.http.get<Station[]>('/node/getAllNode' );
           
     }
 }

@@ -36,7 +36,7 @@ export class ListStationService {
         });
    
      
-        return this.http.get<ListStation[]>('/api/node/getNodeByUser/'+userData.email, {
+        return this.http.get<ListStation[]>('/node/getNodeByUser/'+userData.email, {
             headers: httpHeaders,    
         });
     }
