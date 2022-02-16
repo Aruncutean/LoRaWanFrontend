@@ -19,7 +19,7 @@ export class MyAccountService {
             'Authorization': 'Bearer ' + userData.token,
         });
         httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.get<MyAccountModel>('/userInfo/'+userData.email ,{
+        return this.http.get<MyAccountModel>('/api/userInfo/'+userData.email ,{
             headers: httpHeaders,    
         });
     }

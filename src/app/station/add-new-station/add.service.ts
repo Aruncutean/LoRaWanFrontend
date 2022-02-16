@@ -24,7 +24,7 @@ export class AddService {
             'Authorization': 'Bearer ' + userData.token,
         });
         httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post('/node/addNewNode', {
+        return this.http.post('/api/node/addNewNode', {
             userEmail: userData.email,
             name: name,
             devEui: devEui,

@@ -62,7 +62,7 @@ export class LocationService {
             'Authorization': 'Bearer ' + userData.token,
         });
         httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.get<string[]>('/node/getNodeName/'+userData.email, { headers: httpHeaders, });
+        return this.http.get<string[]>('/api/node/getNodeName/'+userData.email, { headers: httpHeaders, });
     }
 
     getMessage(name:string)
@@ -78,7 +78,7 @@ export class LocationService {
             'Authorization': 'Bearer ' + userData.token,
         });
         httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.get<string[]>('/node/getLastMessage/'+name, { headers: httpHeaders, });
+        return this.http.get<string[]>('/api/node/getLastMessage/'+name, { headers: httpHeaders, });
     }
 
 }

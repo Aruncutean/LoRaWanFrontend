@@ -28,7 +28,7 @@ export class AuthService {
     singUp(email: string, password: string) {
         let httpHeaders = new HttpHeaders();
         httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post<AuthResponseDate>('/authenticate', {
+        return this.http.post<AuthResponseDate>('/api/authenticate', {
             email: email,
             password: password
         }, {

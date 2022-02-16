@@ -40,7 +40,7 @@ export class StatisticService {
             'Authorization': 'Bearer '+userData.token,
         });
      
-        return this.http.get<statistic>('/node/getMyStation/'+userData.email, {
+        return this.http.get<statistic>('/api/node/getMyStation/'+userData.email, {
             headers: httpHeaders,    
         });
     }
