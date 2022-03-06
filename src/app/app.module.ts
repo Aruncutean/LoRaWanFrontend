@@ -39,6 +39,7 @@ const routes: Routes = [
   { path: 'MyAccount', component: MyAccountComponent }
 ];
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +77,13 @@ const routes: Routes = [
     MatSelectModule
   ],
   exports:[RouterModule],
-  providers: [],
+  providers: [
+    { provide: 'BASE_URL', useFactory: getBaseUrl }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function getBaseUrl() {
+  return "http://localhost:8082/";
+}

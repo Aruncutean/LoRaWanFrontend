@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
+import {Inject, Injectable} from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { LocationModel } from "./location.model";
 
 
 @Injectable({ providedIn: 'root' })
 export class LocationService {
-
-    constructor(private http: HttpClient) { }
+  private baseUrl: string;
+    constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) { this.baseUrl = baseUrl; }
 
 
     postLocation(name: string, rssi: number, log: string, lat: string) {
@@ -21,7 +21,7 @@ export class LocationService {
             'Authorization': 'Bearer ' + userData.token,
         });
         httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.post<any>('/api/node/newLocation', {
+        return this.http.post<any>(this.baseUrl + 'node/newLocation', {
             userEmail: userData.email,
             name: name,
             rssi: rssi,
@@ -44,11 +44,11 @@ export class LocationService {
             'Authorization': 'Bearer ' + userData.token,
         });
         httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.get<LocationModel[]>('/api/node/newLocation/'+userData.email, { headers: httpHeaders, });
+        return this.http.get<LocationModel[]>(this.baseUrl + 'node/newLocation/'+userData.email, { headers: httpHeaders, });
 
     }
 
-   
+
     getNodeName()
     {
         const userData: {
@@ -62,7 +62,7 @@ export class LocationService {
             'Authorization': 'Bearer ' + userData.token,
         });
         httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.get<string[]>('/api/node/getNodeName/'+userData.email, { headers: httpHeaders, });
+        return this.http.get<string[]>(this.baseUrl + 'node/getNodeName/'+userData.email, { headers: httpHeaders, });
     }
 
     getMessage(name:string)
@@ -78,7 +78,7 @@ export class LocationService {
             'Authorization': 'Bearer ' + userData.token,
         });
         httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-        return this.http.get<string[]>('/api/node/getLastMessage/'+name, { headers: httpHeaders, });
+        return this.http.get<string[]>(this.baseUrl + 'node/getLastMessage/'+name, { headers: httpHeaders, });
     }
 
 }
