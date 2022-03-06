@@ -85,5 +85,5 @@ const routes: Routes = [
 export class AppModule { }
 
 export function getBaseUrl() {
-  return "http://localhost:8082/";
+  return "https://pacific-taiga-06907.herokuapp.com/";
 }
