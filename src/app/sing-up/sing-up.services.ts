@@ -16,7 +16,7 @@ export class SingUpService {
   setRol(email: string) {
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.post<ResponseDate>(this.baseUrl + 'setUserRol', {
+    return this.http.post<ResponseDate>(this.baseUrl + 'user/setUserRol', {
       email: email,
     }, {
       headers: httpHeaders,
@@ -26,7 +26,7 @@ export class SingUpService {
   singUp(lastName: string, firstName: string, userName: string, email: string, password: string) {
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.post<ResponseDate>(this.baseUrl + 'addUser', {
+    return this.http.post<ResponseDate>(this.baseUrl + 'user/addUser', {
       lastName: lastName,
       firstName: firstName,
       userName: userName,
