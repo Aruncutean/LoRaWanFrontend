@@ -22,14 +22,14 @@
                         <div class="continer">
                             
                                 <select id="nodeSelector" class="browser-default custom-select my-2"   (change)="selectNode($event)">
-                                    <option selected>Open this select menu</option>
+                                    <option selected>Set Nod</option>
                                     <option *ngFor="let item of listNode" (value)="item">{{item}}</option>
 
                                 </select>
                             
 
                             <select [disabled]="nodeIsSelected" class="browser-default custom-select my-2"   (change)="selectMessage($event)">
-                                <option selected>Open this select menu</option>
+                                <option selected>Set message from this location</option>
                                 <option *ngFor="let item of listMessage" (value)="item" >{{item}}</option>
 
                             </select>

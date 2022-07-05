@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import * as L from 'leaflet';
 
+
+
 @Component({
   selector: 'app-infostatin',
   templateUrl: './infostatin.component.html',
@@ -20,9 +22,12 @@ export class InfostatinComponent implements AfterViewInit, OnInit {
   informationList: Array<InformationModel> = [];
   dataSource = new MatTableDataSource(this.informationList);
 
+
   private mapM: any;
   private marker: any;
   private lim = 30;
+  lat: any;
+  long: any
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,9 +38,17 @@ export class InfostatinComponent implements AfterViewInit, OnInit {
     private auth: AuthService) {
   }
   ngOnInit(): void {
+
     this.informationService.getNodePosition(this.data.name).subscribe(resDate => {
-      this.marker = L.circleMarker([Number(resDate.lat), Number(resDate.log)]).addTo(this.mapM);
+         this.lat=resDate.lat;
+         this.long=resDate.log;
+         this.initMap();
+         this.informationService.getNodePosition(this.data.name).subscribe(resDate => {
+          this.marker = L.circleMarker([Number(resDate.lat), Number(resDate.log)]).addTo(this.mapM);
+        })
     })
+
+  
 
     this.informationService.getInformation(this.data.name, this.lim, 0).subscribe(restData => {
       var informationList: Array<InformationModel> = [];
@@ -45,14 +58,18 @@ export class InfostatinComponent implements AfterViewInit, OnInit {
           restData[key].temperature, restData[key].humidity, restData[key].date))
       }
       this.informationList = informationList;
+      this.informationList.sort(function (a, b) {
+        return new Date(b.date).valueOf() - new Date(a.date).valueOf();
+      })
       this.dataSource = new MatTableDataSource(informationList);
+
       this.dataSource.paginator = this.paginator;
     })
 
   }
 
   ngAfterViewInit() {
-    this.initMap();
+   
 
   }
 
@@ -71,7 +88,7 @@ export class InfostatinComponent implements AfterViewInit, OnInit {
 
   private initMap(): void {
     this.mapM = L.map('map', {
-      center: [46.768186, 23.603996],
+      center: [this.lat, this.long],
       zoom: 13
     });
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -88,7 +105,7 @@ export class InfostatinComponent implements AfterViewInit, OnInit {
 
     if ((event.pageIndex * event.pageSize) == (this.lim - 5)) {
 
-      this.informationService.getInformation(this.data.name,  30,this.lim).subscribe(restData => {
+      this.informationService.getInformation(this.data.name, 30, this.lim).subscribe(restData => {
         var informationList: Array<InformationModel> = [];
 
         for (let key in this.informationList) {

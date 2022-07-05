@@ -1,8 +1,12 @@
 {
     "/api": {
-        "target": "https://licenta-db.herokuapp.com/",
-        "secure": false,
-        "logLevel": "debug",
-       "changeOrigin": true
+      "target": "https://licenta-db.herokuapp.com/",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug",
+      "pathRewrite": {
+        "^/api": ""
+      }
     }
-}
+  }
+  

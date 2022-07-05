@@ -15,21 +15,21 @@ export class GraphService {
   getDateForLast7Day(name: string) {
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.get<GraphModel>(this.baseUrl + 'node/getLast7Day/' + name);
+    return this.http.get<GraphModel>(this.baseUrl + 'date/getLast7Day/' + name);
 
   }
 
   getDateForLastMonth(name: string) {
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.get<GraphModel>(this.baseUrl + 'node/getLastMonth/' + name);
+    return this.http.get<GraphModel>(this.baseUrl + 'date/getLastMonth/' + name);
 
   }
 
   getDateForLastYear(name: string) {
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Content-Type', 'application/json; charset=utf-8');
-    return this.http.get<GraphModel>(this.baseUrl + 'node/getLastYear/' + name);
+    return this.http.get<GraphModel>(this.baseUrl + 'date/getLastYear/' + name);
 
   }
 }

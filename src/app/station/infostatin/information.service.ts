@@ -71,7 +71,7 @@ export class InformationService {
       'Authorization': 'Bearer ' + userData.token,
     });
 
-    return this.http.delete(this.baseUrl + 'node/deleteNode/' + name, {
+    return this.http.get('api/node/deleteNode/' + name, {
       headers: httpHeaders,
     });
   }
